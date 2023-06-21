@@ -1,0 +1,1 @@
+Full stack React application using node.js for creating a REST API w/ MongoDB

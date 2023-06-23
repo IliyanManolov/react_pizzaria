@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import DishCard from './DishCard'
 import { Burgers, Pizzas } from '../data'
+import axios from 'axios'
 
 const Container = styled.div`
   display: flex;
@@ -10,8 +11,21 @@ const Container = styled.div`
   justify-content: space-between;
 `
 
-
 const DishListDisplay = ({category}) =>{
+  
+  const getProducts = async () => {
+    try{
+      const productsURL = "http://localhost:5000/api/products";
+
+      const response = await axios.get(productsURL);
+      console.log(response.data)
+      return response.data;
+    }catch (err) {console.log(err)}
+  }
+
+  const products = getProducts();
+
+  //TO-DO: sort through the products and only used the needed category
 
   switch (category){
     case ("Pizza"):

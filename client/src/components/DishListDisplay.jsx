@@ -13,19 +13,30 @@ const Container = styled.div`
 
 const DishListDisplay = ({category}) =>{
   
-  const getProducts = async () => {
-    try{
-      const productsURL = "http://localhost:5000/api/products";
+  useEffect(() => {
 
-      const response = await axios.get(productsURL);
-      console.log(response.data)
-      return response.data;
-    }catch (err) {console.log(err)}
-  }
+    const getProducts = async () => {
+      try{
+        const productsURL = "http://localhost:5000/api/products";  
+        await axios.get(productsURL).then((res) => {
+          SortProducts(res.data);
+        });
+      }catch (err) {console.log(err)}
+    }
 
-  const products = getProducts();
+    const products = [getProducts()];
+    const productsList = [];
 
-  //TO-DO: sort through the products and only used the needed category
+    async function SortProducts(list) {
+      list.forEach(item => {
+        if (item.category === category){
+          productsList.push(item);
+        }
+      })
+      console.log(productsList)
+    }    
+  }, []); 
+
 
   switch (category){
     case ("Pizza"):

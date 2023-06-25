@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import DishCard from './DishCard'
-import { Burgers, Pizzas } from '../data'
 import axios from 'axios'
 
 const Container = styled.div`
@@ -13,50 +12,32 @@ const Container = styled.div`
 
 const DishListDisplay = ({category}) =>{
   
+  const [productsList, setProductsList] = useState([]);
+
   useEffect(() => {
-
     const getProducts = async () => {
-      try{
-        const productsURL = "http://localhost:5000/api/products";  
-        await axios.get(productsURL).then((res) => {
-          SortProducts(res.data);
-        });
-      }catch (err) {console.log(err)}
-    }
+      try {
+        const productsURL = "http://localhost:5000/api/products";
+        const response = await axios.get(productsURL);
+        const sortedProducts = response.data.filter((item) => (
+          item.category === category
+        ));
+        setProductsList(sortedProducts);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-    const productsList = [];
-
-    async function SortProducts(list) {
-      list.forEach(item => {
-        if (item.category === category){
-          productsList.push(item);
-        }
-      })
-      console.log(productsList)
-    }
     getProducts();
-  }, []); 
+  }, [category]);
 
-
-  switch (category){
-    case ("Pizza"):
-      return (
-        <Container>
-          {Pizzas.map(item =>(
-            <DishCard dish={item}/>
-          ))}
-        </Container>
-      )
-
-    case ("Burgers"):
-      return (
-        <Container>
-          {Burgers.map(item =>(
-            <DishCard dish={item}/>
-          ))}
-        </Container>
-      )
-  }
+  return (
+    <Container>
+      {productsList.map(item => (
+        <DishCard dish={item} key={item.id} />
+      ))}
+    </Container>
+  );
 }
 
 export default DishListDisplay

@@ -24,7 +24,6 @@ const DishListDisplay = ({category}) =>{
       }catch (err) {console.log(err)}
     }
 
-    const products = [getProducts()];
     const productsList = [];
 
     async function SortProducts(list) {

@@ -33,7 +33,8 @@ const DishListDisplay = ({category}) =>{
         }
       })
       console.log(productsList)
-    }    
+    }
+    getProducts();
   }, []); 
 
 

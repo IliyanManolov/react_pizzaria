@@ -67,13 +67,12 @@ const Button = styled.button`
 const DishCard = ({dish}) =>{
   const navigate = useNavigate();
   const currentDish = dish;
-
   return (
     <Container>
       <Image src={dish.picture}/>
       <InformationContainer>
         <DishName>{dish.title}</DishName>
-        <Button onClick={() => navigate('../dish', 
+        <Button onClick={() => navigate(`../dish/${dish.title}`, 
         {
           state: {currentDish}
           })}

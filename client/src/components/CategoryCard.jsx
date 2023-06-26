@@ -50,7 +50,7 @@ const CategoryCard = ({category}) => {
       <InformationContainer>
         <Title>{category.title}</Title>
         
-        <Button onClick={() => navigate('category', 
+        <Button onClick={() => navigate(`../category/${category.title}`, 
         {
           state: {cardCattegory}
           })}>

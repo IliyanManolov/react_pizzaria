@@ -66,7 +66,6 @@ const Button = styled.button`
 const Dish = () =>{
   const location = useLocation();
 
-  console.log(location.state)
   const dish = location.state.currentDish
   const IngredientsList = dish.ingredients.map((ingr) =>
   <li>{ingr}</li> )
@@ -100,7 +99,7 @@ const Dish = () =>{
           </Description>
 
           <PriceInfoContainer>
-            <Price>{dish.price}</Price>
+            <Price>{dish.price} BGN</Price>
             <Button onClick={handleClick}>ADD TO CART</Button>
           </PriceInfoContainer>
           

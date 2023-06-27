@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Navbar from '../components/Navbar'
 import { useLocation } from 'react-router-dom'
+import { addProduct } from '../redux/cartRedux'
+import { useDispatch } from 'react-redux'
 
 const Container = styled.div`
   
@@ -69,6 +71,14 @@ const Dish = () =>{
   const IngredientsList = dish.ingredients.map((ingr) =>
   <li>{ingr}</li> )
 
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(
+      addProduct({product:dish, quantity: 1})
+    )
+  };
+
   return (
     <Container>
       <Navbar/>
@@ -91,7 +101,7 @@ const Dish = () =>{
 
           <PriceInfoContainer>
             <Price>{dish.price}</Price>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleClick}>ADD TO CART</Button>
           </PriceInfoContainer>
           
         </InformationContainer>

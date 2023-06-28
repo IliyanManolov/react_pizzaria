@@ -30,8 +30,9 @@ router.put("/:id", async (req, res) =>{
 })
 
 router.delete("/:id", async (req, res) => {
+  const {id} = req.params;
   try{
-    await Cart.findByIdAndDelete(req.params.id);
+    await Cart.findByIdAndDelete(id);
     res.status(200).json("Cart has been deleted");
   }
   catch(err){
@@ -41,8 +42,9 @@ router.delete("/:id", async (req, res) => {
 
 
 router.get("/find/:id", async (req, res) =>{
+  const {id} = req.params;
   try{
-    const cart = await Cart.findById(req.params.id);
+    const cart = await Cart.findById(id);
     res.status(200).json(cart);
   }
   catch(err){

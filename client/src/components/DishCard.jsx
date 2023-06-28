@@ -1,5 +1,7 @@
 import { AddShoppingCart } from '@material-ui/icons'
 import React from 'react'
+import { addProduct } from '../redux/cartRedux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -67,6 +69,15 @@ const Button = styled.button`
 const DishCard = ({dish}) =>{
   const navigate = useNavigate();
   const currentDish = dish;
+
+  const dispatch = useDispatch();
+
+  const handleClick = () =>{
+    dispatch(
+      addProduct({product: dish, quantity: 1})
+    )
+  };
+
   return (
     <Container>
       <Image src={dish.picture}/>
@@ -80,7 +91,7 @@ const DishCard = ({dish}) =>{
           DETAILS
         </Button>
         <Icon>
-          <AddShoppingCart/>
+          <AddShoppingCart onClick={handleClick}/>
         </Icon>
       </InformationContainer>
     </Container>
